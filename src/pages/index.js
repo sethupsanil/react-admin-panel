@@ -9,7 +9,7 @@ import Invoices from "./invoices/Invoices";
 import Line from "./line/Line";
 import Pie from "./pie/Pie";
 import Team from "./team/Team";
-
+import Login from './login/Login'
 export {
     Dashboard,
     Team,
@@ -21,5 +21,6 @@ export {
     Pie,
     Faq,
     Geography,
-    Calendar
+    Calendar,
+    Login
 }

@@ -11,14 +11,16 @@ import {
   Form,
   Line,
   Pie,
-  Faq,
+  Login,
   Geography,
   Calendar
 } from "./pages";
 import { ColorModeContext, useMode } from "./theme";
+import { RequireAuth, useIsAuthenticated } from 'react-auth-kit'
 
 
 function App() {
+  const isAuthenticated = useIsAuthenticated();
   const [theme, colorMode] = useMode();
 
   return (
@@ -26,20 +28,63 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar/>
+          {isAuthenticated() && <Sidebar />}
           <main className="content">
-            <TopBar />
+            {isAuthenticated() && <TopBar />}
             <Routes>
-              <Route path='/' element={<Dashboard/>}/>
-              <Route path='/team' element={<Team/>}/>
-              <Route path='/contacts' element={<Contacts/>}/>
-              <Route path='/invoices' element={<Invoices/>}/>
-              <Route path='/form' element={<Form/>}/>
-              <Route path='/bar' element={<Bar/>}/>
-              <Route path='/pie' element={<Pie/>}/>
-              <Route path='/line' element={<Line/>}/>
-              <Route path='/geography' element={<Geography/>}/>
-              <Route path='/calendar' element={<Calendar/>}/>
+              <Route path='/login' element={<Login />} />
+              <Route path='/' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Dashboard />
+                </RequireAuth>
+              } />
+              <Route path='/team' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Team />
+                </RequireAuth>
+              } />
+              <Route path='/contacts' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Contacts />
+                </RequireAuth>
+              } />
+              <Route path='/invoices' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Invoices />
+                </RequireAuth>
+              } />
+              <Route path='/form' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Form />
+                </RequireAuth>
+              } />
+              <Route path='/bar' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Bar />
+
+                </RequireAuth>
+              } />
+              <Route path='/pie' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Pie />
+                </RequireAuth>
+              } />
+              <Route path='/line' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Line />
+                </RequireAuth>
+              } />
+              <Route path='/geography' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Geography />
+                </RequireAuth>
+              } />
+              <Route path='/calendar' element={
+                <RequireAuth loginPath={'/login'}>
+                  <Calendar />
+                </RequireAuth>
+              } />
+              <Route path='/*' element={<Login />} />
             </Routes>
           </main>
         </div>
