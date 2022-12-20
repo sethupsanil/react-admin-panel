@@ -1,5 +1,5 @@
 import { useTheme } from "@emotion/react";
-import { Box } from "@mui/material";
+import { Backdrop, Box, CircularProgress } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import { Header } from "../../components";
@@ -11,6 +11,7 @@ const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [contactsList, setContactsList] = useState([]);
+  const [showLoader, setShowLoader] = useState(true);
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
@@ -39,10 +40,17 @@ const Contacts = () => {
 
     requestApi(requestConfig, (response) => {
       setContactsList(response.data);
+      setShowLoader(response.loading)
     });
   }, []);
   return (
     <Box m="20px">
+      <Backdrop
+        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={showLoader}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
       <Header
         title="CONTACTS"
         subtitle="List of Contacts for Future Reference"
