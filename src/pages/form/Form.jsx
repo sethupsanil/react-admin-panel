@@ -193,12 +193,12 @@ const checkoutSchema = yup.object().shape({
   address2: yup.string().required("required"),
 });
 const initialValues = {
-  firstName: "John",
-  lastName: "doe",
-  email: "John@gmail.com",
-  contact: "1234567890",
-  address1: "nil",
-  address2: "no",
+  firstName: "",
+  lastName: "",
+  email: "",
+  contact: "",
+  address1: "",
+  address2: "",
 };
 
 export default Form;

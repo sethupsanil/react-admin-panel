@@ -1,4 +1,11 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -14,10 +21,23 @@ import {
   StatBox,
   ProgressCircle,
 } from "../../components";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [statusSpan, setStatusSpan] = useState(3);
+  const isTab = useMediaQuery("(max-width:1023px)");
+  const isMobile = useMediaQuery("(max-width:767px)");
+  useEffect(() => {
+    if (isMobile) {
+      setStatusSpan(12);
+    }
+    if (isTab) {
+      setStatusSpan(6);
+    }
+    console.log(isMobile,isTab);
+  },[isMobile,isTab]);
 
   return (
     <Box m="20px">
@@ -50,7 +70,7 @@ const Dashboard = () => {
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn={"span " + statusSpan}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -69,7 +89,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+           gridColumn={"span " + statusSpan}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -88,7 +108,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+           gridColumn={"span " + statusSpan}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -107,7 +127,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+           gridColumn={"span " + statusSpan}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -128,7 +148,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn={`span ${ isTab ?'12':'8'}`}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -168,7 +188,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+         gridColumn={`span ${ isTab ?'12':'4'}`}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -220,7 +240,7 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 4"
+           gridColumn={`span ${ isTab ?'12':'4'}`}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
@@ -246,7 +266,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+            gridColumn={`span ${ isTab ?'12':'4'}`}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -262,7 +282,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+            gridColumn={`span ${ isTab ?'12':'4'}`}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           padding="30px"
